@@ -1,0 +1,20 @@
+logging:
+    level:
+        root: debug
+---
+spring:
+    rsocket:
+        server:
+            port: 7000
+    config:
+        activate:
+            on-profile: server
+server:
+    port: 8081
+---
+spring:
+    config:
+        activate:
+            on-profile: client
+server:
+    port: 8080
