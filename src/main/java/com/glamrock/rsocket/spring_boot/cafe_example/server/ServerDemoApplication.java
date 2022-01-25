@@ -1,4 +1,4 @@
-package com.glamrock.rsocket.spring_boot.caffe_example.server;
+package com.glamrock.rsocket.spring_boot.cafe_example.server;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;

@@ -1,0 +1,45 @@
+package com.glamrock.rsocket.emitter.service;
+
+import com.glamrock.rsocket.emitter.model.Item;
+import com.glamrock.rsocket.emitter.repository.ItemRepository;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.stereotype.Controller;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.core.publisher.Sinks;
+
+@Controller
+public class RSocketService {
+    private final ItemRepository repository;
+
+    private final Sinks.Many<Item> itemSink;
+
+    public RSocketService(ItemRepository repository) {
+        this.repository = repository;
+        this.itemSink = Sinks.many().multicast().onBackpressureBuffer();
+    }
+
+    @MessageMapping("newItems.request-response")
+    public Mono<Item> processNewItemsViaRSocketRequestResponse(Item item) {
+        return this.repository.save(item)
+                .doOnNext(this.itemSink::tryEmitNext);
+    }
+
+    @MessageMapping("newItems.request-stream")
+    public Flux<Item> findItemsViaRSocketRequestStream() {
+        return this.repository.findAll()
+                .doOnNext(this.itemSink::tryEmitNext);
+    }
+
+    @MessageMapping("newItems.fire-and-forget")
+    public Mono<Void> processNewItemsViaRSocketFireAndForget(Item item) {
+        return this.repository.save(item)
+                .doOnNext(this.itemSink::tryEmitNext)
+                .then();
+    }
+
+    @MessageMapping("newItems.monitor")
+    public Flux<Item> monitorNewItems() {
+        return this.itemSink.asFlux();
+    }
+}

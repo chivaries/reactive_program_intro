@@ -3,12 +3,13 @@ logging:
         root: debug
 ---
 spring:
-    rsocket:
-        server:
-            port: 7000
     config:
         activate:
             on-profile: server
+    rsocket:
+        server:
+            port: 7000
+            transport: tcp
 server:
     port: 8081
 ---

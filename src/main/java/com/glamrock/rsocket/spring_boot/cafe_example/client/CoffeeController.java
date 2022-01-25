@@ -1,4 +1,4 @@
-package com.glamrock.rsocket.spring_boot.caffe_example.client;
+package com.glamrock.rsocket.spring_boot.cafe_example.client;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.rsocket.RSocketRequester;

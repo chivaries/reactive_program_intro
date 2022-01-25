@@ -1,6 +1,5 @@
-package com.glamrock.rsocket.spring_boot.caffe_example.client;
+package com.glamrock.rsocket.spring_boot.cafe_example.client;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
