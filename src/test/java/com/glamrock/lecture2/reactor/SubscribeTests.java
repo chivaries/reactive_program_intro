@@ -1,6 +1,5 @@
-package com.glamrock.lecture3.flux_subscribe;
+package com.glamrock.lecture2.reactor;
 
-import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Test;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -15,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FluxSubscribeTests {
+public class SubscribeTests {
     @Test
     void test_flux_subscribe() {
         /*

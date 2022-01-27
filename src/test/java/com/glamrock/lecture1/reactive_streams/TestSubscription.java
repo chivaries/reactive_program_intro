@@ -23,17 +23,18 @@ public class TestSubscription implements Subscription {
     public void request(long n) {
         if (n < 0) { // TODO:error
         } else {
-            for(int i = 0; i < n; i++) {
-                int count = value.incrementAndGet();
-
-                if (count > 1000) {
-                    log.info("Item is over");
-                    subscriber.onComplete();
-                } else {
-                    log.info("push Item + " + count);
-                    subscriber.onNext(count);
+            executorService.execute(() -> {
+                for(int i = 0; i < n; i++) {
+                    int count = value.incrementAndGet();
+                    if (count > 1000) {
+                        log.info("Item is over");
+                        subscriber.onComplete();
+                    } else {
+                        log.info("push Item + " + count);
+                        subscriber.onNext(count);
+                    }
                 }
-            }
+            });
         }
     }
 
